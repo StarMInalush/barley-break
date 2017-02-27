@@ -8,125 +8,168 @@ namespace barley_break
 {
     class Game
     {
-        int[,] MassGame;
+        private int[,] FieldGame;
+        private int[,] Coordinates;
         public Game(int[] mass)
         {
-            int size = (int)Math.Sqrt(mass.Length);
-            MassGame = new int[size, size];
+            double size = mass.Length;
+            int sizeField = 0;
+            if (size % 1 == 0)
+            {
+                sizeField = (int)Math.Sqrt(size);
+            }
+            else
+            {
+                throw new ArgumentException("Недостаточно чисел для построения поля!");
+            }
+            if (sizeField <= 1)
+            {
+                throw new ArgumentException("Размер поля не может быть меньше или равным 1!");
+            }
+            FieldGame = new int[sizeField, sizeField];
+            Coordinates = new int[mass.Length, 2];
             for (int i = 0; i < mass.Length; i++)
             {
-                for (int x = 0; x < size; x++)
+                for (int j = 0; j < sizeField; j++)
                 {
-                    for (int y = 0; y < size; y++)
+                    for (int k = 0; k < sizeField; k++)
                     {
-                        MassGame[x, y] = mass[i];
+                        FieldGame[j, k] = mass[i];
+                        Coordinates[mass[i], 0] = j;
+                        Coordinates[mass[i], 1] = k;
                         i++;
                     }
                 }
             }
+            Show();
+
         }
         public int this[int x, int y]
         {
             get
             {
-                return MassGame[x, y];
+                return FieldGame[x, y];
             }
 
             set
             {
-                MassGame[x, y] = value;
+                FieldGame[x, y] = value;
             }
         }
 
-        public List<int> GetLocation(int value)
+        public int[] GetLocation(int value)
         {
-            List<int> points = new List<int>();
-            for (int x = 0; x < MassGame.GetLength(0); x++)
+            if (value < 0 || value >= FieldGame.Length)
             {
-                for (int y = 0; y < MassGame.GetLength(1); y++)
+                throw new ArgumentException("Такого элемента нет в поле!");
+            }
+            int[] coord = new int[2];
+            coord[0] = Coordinates[value, 0];
+            coord[1] = Coordinates[value, 1];
+            return coord;
+        }
+        public void Shift(int value)
+        {
+            int[] massCoordinates = GetLocation(value);
+            int[] temp = GetLocation(0);
+            char letter = Console.ReadKey().KeyChar;
+            switch (letter)
+            {
+                case 'A':
+                    try
+                    {
+                        if (FieldGame[massCoordinates[0], massCoordinates[1] - 1] == 0)
+                        {
+                            Move(value, "влево", massCoordinates, temp);
+                        }
+                        else
+                        {
+                            Console.WriteLine(" Невозможно переместить клетку влево, так как там нет 0");
+                        }
+                    }
+                    catch (IndexOutOfRangeException)
+                    {
+                        Console.WriteLine(" Вы не можете передвинуть клетку за пределы поля!");
+                    }
+                    Shift(value);
+                    break;
+                case 'W':
+                    try
+                    {
+                        if (FieldGame[massCoordinates[0] - 1, massCoordinates[1]] == 0)
+                        {
+                            Move(value, "вверх", massCoordinates, temp);
+                        }
+                        else
+                        {
+                            Console.WriteLine(" Невозможно переместить клетку вверх, так как там нет 0");
+                        }
+                    }
+                    catch (IndexOutOfRangeException)
+                    {
+                        Console.WriteLine(" Вы не можете передвинуть клетку за пределы поля!");
+                    }
+                    Shift(value);
+                    break;
+                case 'S':
+                    try
+                    {
+                        if (FieldGame[massCoordinates[0] + 1, massCoordinates[1]] == 0)
+                        {
+                            Move(value, "вниз", massCoordinates, temp);
+                        }
+                        else
+                        {
+                            Console.WriteLine(" Невозможно переместить клетку вниз, так как там нет 0");
+                        }
+                    }
+                    catch (IndexOutOfRangeException)
+                    {
+                        Console.WriteLine(" Вы не можете передвинуть клетку за пределы поля!");
+                    }
+                    Shift(value);
+                    break;
+                case 'D':
+                    try
+                    {
+                        if (FieldGame[massCoordinates[0], massCoordinates[1] + 1] == 0)
+                        {
+                            Move(value, "вправо", massCoordinates, temp);
+                        }
+                        else
+                        {
+                            Console.WriteLine(" Невозможно переместить клетку вправо, так как там нет 0");
+                        }
+                    }
+                    catch (IndexOutOfRangeException)
+                    {
+                        Console.WriteLine(" Вы не можете передвинуть клетку за пределы поля!");
+                    }
+                    Shift(value);
+                    break;
+            }
+        }
+        private void Move (int value, string direction, int [] massCoordinates, int [] temp)
+        {
+            Coordinates[value, 0] = temp[0];
+            Coordinates[value, 1] = temp[1];
+            Coordinates[0, 0] = massCoordinates[0];
+            Coordinates[0, 1] = massCoordinates[1];
+            FieldGame[temp[0], temp[1]] = value;
+            FieldGame[massCoordinates[0], massCoordinates[1]] = 0;
+            Console.WriteLine(" Перемещено "+ direction);
+            Show();
+        }
+        private void Show()
+        {
+            for (int i = 0; i < FieldGame.GetLength(0); i++)
+            {
+                for (int j = 0; j < FieldGame.GetLength(1);j++)
                 {
-                    if (MassGame[x, y] == value)
-                    {
-                        points.Add(x);
-                        points.Add(y);
-                    }
+                    Console.Write(FieldGame[i, j] + " ");
                 }
+                Console.WriteLine();
             }
-            return points;
-        }
-
-        public void Shift(int value) //разобраться с исключениями
-        {
-            List<int> pointsValue = GetLocation(value);
-            string temp = Console.ReadLine();
-            switch (temp)
-            {
-                case "a":
-                    try
-                    {
-                        if (MassGame[pointsValue[0], pointsValue[1] - 1] == 0)
-                        {
-                            MassGame[pointsValue[0], pointsValue[1] - 1] = value;
-                            MassGame[pointsValue[0], pointsValue[1]] = 0;
-                            Console.WriteLine("Успешно перемещено влево");
-                            Shift(value);
-                        }
-                    }
-                    catch (ArgumentException )
-                    {
-                        Console.WriteLine("Невозможно передвинуть клетку влево");
-                    }
-                    break;
-                case "d":
-                    try
-                    {
-                        if (MassGame[pointsValue[0], pointsValue[1] + 1] == 0)
-                        {
-                            MassGame[pointsValue[0], pointsValue[1] + 1] = value;
-                            MassGame[pointsValue[0], pointsValue[1]] = 0;
-                            Console.WriteLine("Успешно перемещено вправо");
-                            Shift(value);
-                        }
-                    }
-                    catch (IndexOutOfRangeException)
-                    {
-                        Console.WriteLine("Невозможно передвинуть клетку вправо");
-                    }
-                    break;
-                case "w":
-                    try
-                    {
-                        if (MassGame[pointsValue[0] + 1, pointsValue[1]] == 0)
-                        {
-                            MassGame[pointsValue[0] + 1, pointsValue[1]] = value;
-                            MassGame[pointsValue[0], pointsValue[1]] = 0;
-                            Console.WriteLine("Успешно перемещено вверх");
-                            Shift(value);
-                        }
-                    }
-                    catch (IndexOutOfRangeException)
-                    {
-                        Console.WriteLine("Невозможно передвинуть клетку вверх");
-                    }
-                    break;
-                case "s":
-                    try
-                    {
-                        if (MassGame[pointsValue[0] - 1, pointsValue[1]] == 0)
-                        {
-                            MassGame[pointsValue[0] - 1, pointsValue[1]] = value;
-                            MassGame[pointsValue[0], pointsValue[1]] = 0;
-                            Console.WriteLine("Успешно перемещено вниз");
-                            Shift(value);
-                        }
-                    }
-                    catch (IndexOutOfRangeException)
-                    {
-                        Console.WriteLine("Невозможно передвинуть клетку вниз");
-                    }
-                    break;
-            }
-
         }
     }
 }
