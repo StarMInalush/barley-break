@@ -10,12 +10,11 @@ namespace barley_break
     {
         static void Main(string[] args)
         {
-            int[] arguments = { 1, 2, 3, 4, 5, 6, 7, 8, 0 };
-            Game game = new Game(arguments);
+            Game game = new Game(1, 2, 8, 5, 7, 0, 6, 3, 4);
             int[] coord = game.GetLocation(2);
             Console.WriteLine("Координаты 2: " + coord[0] + "," + coord[1]);
-            Console.WriteLine("Для управления методом Shift используйте клавиши W, A, D, S");
             game.Shift(8);
+           // game.Shift(2);
             Console.ReadLine();
         }
     }
