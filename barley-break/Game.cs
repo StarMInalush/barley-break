@@ -68,14 +68,17 @@ namespace barley_break
             {
                 FieldGame[gameValue.X, gameValue.Y] = 0;
                 FieldGame[gameZero.X, gameZero.Y] = value;
-                gameZero = gameValue;
-                gameValue.X = 0;
-                gameValue.Y = 0;
+                PointGame[0] = gameValue;
+                PointGame[value] = gameZero;
+                
             }
             else
             {
                 throw new ArgumentException("Невозможно переместить клетку!");
             }
+            Show();
+            Console.ReadLine();
+            Shift(value);
 
         }
 
