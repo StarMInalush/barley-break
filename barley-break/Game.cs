@@ -60,6 +60,7 @@ namespace barley_break
             }
             return PointGame[value];
         }
+
         public void Shift(int value)
         {
             Point gameValue = GetLocation(value);
@@ -70,16 +71,12 @@ namespace barley_break
                 FieldGame[gameZero.X, gameZero.Y] = value;
                 PointGame[0] = gameValue;
                 PointGame[value] = gameZero;
-                
+                Show();
             }
             else
             {
                 throw new ArgumentException("Невозможно переместить клетку!");
             }
-            Show();
-            Console.ReadLine();
-            Shift(value);
-
         }
 
         private void Show()
@@ -91,17 +88,17 @@ namespace barley_break
                     Console.Write(FieldGame[i,j] + " ");
                 }
                 Console.WriteLine();
-
             }
             Console.WriteLine();
         }
+
         public static Game GameFromCSV(string path)
-        { //проверка правильной длины строк
-            StreamReader f = new StreamReader(path);//чтение файла (массив в который будем вносить)
-            string s;//промежуточный стринг для чтения
-            int count = System.IO.File.ReadAllLines(path).Length;
+        { 
+            StreamReader f = new StreamReader(path);
+            string s;
+            int count = File.ReadAllLines(path).Length;
             int[] a = new int[count * count];
-            string[] buf;//стринг с неконвертированными цифрами
+            string[] buf;
             int t = 0;
             int i = 0;
             while ((s = f.ReadLine()) != null)
