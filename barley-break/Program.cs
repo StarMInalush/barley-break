@@ -11,8 +11,10 @@ namespace barley_break
         static void Main(string[] args)
         {
             Game game = new Game(1, 2, 8, 5, 7, 0, 6, 3, 4);
-            int[] coord = game.GetLocation(2);
-            Console.WriteLine("Координаты 2: " + coord[0] + "," + coord[1]);
+            Point coord = game.GetLocation(2);
+            string path = "C:\\Users\\user\\Desktop\\GameFromFile.csv";
+            Game.GameFromCSV(path);
+            Console.WriteLine("Координаты 2: " + coord.X + "," + coord.Y);
             game.Shift(8);
            // game.Shift(2);
             Console.ReadLine();
