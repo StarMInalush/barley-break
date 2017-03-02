@@ -8,7 +8,7 @@ namespace barley_break
 {
     class Point
     {
-        public int X, Y;
+        public readonly int X, Y;
         public Point(int x, int y)
         {
             this.X = x;
