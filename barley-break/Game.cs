@@ -9,8 +9,8 @@ namespace barley_break
 {
     class Game
     {
-        private Point[] PointGame;
-        private int[,] FieldGame;
+        protected Point[] PointGame;
+        protected int[,] FieldGame;
         public Game(params int[] mass)
         {
             int size = (int)Math.Sqrt(mass.Length);
@@ -61,7 +61,7 @@ namespace barley_break
             return PointGame[value];
         }
 
-        public void Shift(int value)
+        public virtual void Shift(int value)
         {
             Point gameValue = GetLocation(value);
             Point gameZero = GetLocation(0);
@@ -71,15 +71,14 @@ namespace barley_break
                 FieldGame[gameZero.X, gameZero.Y] = value;
                 PointGame[0] = gameValue;
                 PointGame[value] = gameZero;
-                Show();
             }
             else
             {
-                throw new ArgumentException("Невозможно переместить клетку!");
+                Console.WriteLine("Невозможно передвинуть клетку!");
             }
         }
 
-        private void Show()
+        public void Show()
         {
             for (int i = 0; i < FieldGame.GetLength(0); i++)
             {
