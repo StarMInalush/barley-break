@@ -9,7 +9,7 @@ namespace barley_break
 {
     class Game
     {
-        protected Point[] PointGame;
+        protected Point[] pointGame;
         public readonly int[,] FieldGame;
         public Game(params int[] mass)
         {
@@ -23,7 +23,7 @@ namespace barley_break
                 throw new ArgumentException("Размер поля не может быть меньше или равным 1!");
             }
             FieldGame = new int[size, size];
-            PointGame = new Point[mass.Length];
+            pointGame = new Point[mass.Length];
             for (int i = 0; i < mass.Length; i++)
             {
                 for (int j = 0; j < size; j++)
@@ -31,7 +31,7 @@ namespace barley_break
                     for (int k = 0; k < size; k++)
                     {
                         FieldGame[j, k] = mass[i];
-                        PointGame[mass[i]] = new Point(j, k);
+                        pointGame[mass[i]] = new Point(j, k);
                         i++;
                     }
                 }
@@ -53,11 +53,11 @@ namespace barley_break
 
         public Point GetLocation(int value)//tuplе или point
         {
-            if (value < 0 || value >= PointGame.Length)
+            if (value < 0 || value >= pointGame.Length)
             {
                 throw new ArgumentException("Такого элемента нет в поле!");
             }
-            return PointGame[value];
+            return pointGame[value];
         }
 
         public virtual void Shift(int value)
@@ -68,8 +68,8 @@ namespace barley_break
             {
                 FieldGame[gameValue.X, gameValue.Y] = 0;
                 FieldGame[gameZero.X, gameZero.Y] = value;
-                PointGame[0] = gameValue;
-                PointGame[value] = gameZero;
+                pointGame[0] = gameValue;
+                pointGame[value] = gameZero;
             }
             else
             {
