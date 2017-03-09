@@ -10,11 +10,11 @@ namespace barley_break
     class Game
     {
         protected Point[] PointGame;
-        protected int[,] FieldGame;
+        public readonly int[,] FieldGame;
         public Game(params int[] mass)
         {
             int size = (int)Math.Sqrt(mass.Length);
-            if (size * size != mass.Length) 
+            if (size * size != mass.Length)
             {
                 throw new ArgumentException("Недостаточно чисел для построения поля!");
             }
@@ -36,7 +36,6 @@ namespace barley_break
                     }
                 }
             }
-            Show();
 
         }
         public int this[int x, int y]
@@ -78,21 +77,8 @@ namespace barley_break
             }
         }
 
-        public void Show()
-        {
-            for (int i = 0; i < FieldGame.GetLength(0); i++)
-            {
-                for (int j = 0; j < FieldGame.GetLength(1); j++)
-                {
-                    Console.Write(FieldGame[i,j] + " ");
-                }
-                Console.WriteLine();
-            }
-            Console.WriteLine();
-        }
-
         public static Game GameFromCSV(string path)
-        { 
+        {
             StreamReader f = new StreamReader(path);
             string s;
             int count = File.ReadAllLines(path).Length;

@@ -10,30 +10,35 @@ namespace barley_break
     {
         static void Main(string[] args)
         {
-            // Game game = new Game(1, 2, 8, 5, 7, 0, 6, 3, 4);
-            // Point coord = game.GetLocation(2);
-            // string path = "C:\\Users\\user\\Desktop\\GameFromFile.csv";
+            Game3 game = new Game3(1, 2, 8, 5, 7, 0, 6, 3, 4);
+            Point coord = game.GetLocation(2);
+            //string path = "C:\\Users\\user\\Desktop\\GameFromFile.csv";
             // Game.GameFromCSV(path);
-            // Console.WriteLine("Координаты 2: " + coord.X + "," + coord.Y);
-            // game.Shift(8);
-            //// game.Shift(2);
-            Game3 game = new Game3 (1, 2, 3, 4, 5, 6, 7, 8,0);
-            game.Random();
-            do
-            {
-                Console.Clear();
-                game.Show();
-                Console.WriteLine("Введите число: ");
-                var temp = Convert.ToInt32(Console.ReadLine());
-                game.Shift(temp);
-                game.Show();
-                Console.WriteLine("Сделать откат:");
-                var temp1 = Convert.ToInt32(Console.ReadLine());
-                game.Reverse(temp1);
-                game.Show();
-            } while (!game.IsEnd());
-            Console.WriteLine("Вы выиграли!");
+            Show(game);
+            Console.WriteLine("Координаты 2: " + coord.X + "," + coord.Y);
+            Console.WriteLine("Выберите число, которое хотите передвинуть: ");
+            var temp = Convert.ToInt32(Console.ReadLine());
+            game.Shift(temp);
+            Show(game);
+            //game.Shift(2);
+            Console.WriteLine("Введите число шагов, на которе хотите откатиться: ");
+            var step = Convert.ToInt32(Console.ReadLine());
+            game.Reverse(step);
+            Show(game);
             Console.ReadLine();
+        }
+
+        public static void Show(Game game)
+        {
+            for (int i = 0; i < game.FieldGame.GetLength(0); i++)
+            {
+                for (int j = 0; j < game.FieldGame.GetLength(1); j++)
+                {
+                    Console.Write(game.FieldGame[i, j] + " ");
+                }
+                Console.WriteLine();
+            }
+            Console.WriteLine();
         }
     }
 }

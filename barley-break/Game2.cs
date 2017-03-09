@@ -12,7 +12,7 @@ namespace barley_break
         public void Random()
         {
             Random gen = new Random();
-            for (int i =0; i < 100; i++ )
+            for (int i =0; i < FieldGame.Length; i++ )
             {
                 base.Shift(gen.Next(1, PointGame.Length - 1));
             }
