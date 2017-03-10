@@ -10,7 +10,8 @@ namespace barley_break
     {
         static void Main(string[] args)
         {
-            Game3 game = new Game3(1, 2, 8, 5, 7, 0, 6, 3, 4);
+            Game3 game = new Game3(1, 2, 3, 4, 5, 6, 7, 8, 0);
+            game.Random();
             Point coord = game.GetLocation(2);
             //string path = "C:\\Users\\user\\Desktop\\GameFromFile.csv";
             // Game.GameFromCSV(path);
@@ -21,7 +22,7 @@ namespace barley_break
             game.Shift(temp);
             Show(game);
             //game.Shift(2);
-            Console.WriteLine("Введите число шагов, на которе хотите откатиться: ");
+            Console.WriteLine("Введите число шагов, на которое хотите откатиться: ");
             var step = Convert.ToInt32(Console.ReadLine());
             game.Reverse(step);
             Show(game);

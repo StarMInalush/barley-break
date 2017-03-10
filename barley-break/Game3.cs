@@ -9,14 +9,15 @@ namespace barley_break
     class Game3 : Game2
     {
         private Stack<int> history;
-        public Game3(params int[] mass) : base(mass)
+        public Game3(params int[] mass)
+            : base(mass)
         {
             history = new Stack<int>();
         }
         public override void Shift(int value)
         {
-            history.Push(value);
             base.Shift(value);
+            history.Push(value);
         }
         public void Reverse(int value)
         {

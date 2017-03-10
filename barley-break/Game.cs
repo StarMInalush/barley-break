@@ -22,7 +22,14 @@ namespace barley_break
             {
                 throw new ArgumentException("Размер поля не может быть меньше или равным 1!");
             }
-            FieldGame = new int[size, size];
+            for (int i = 0; i < mass.Length - 2; i++)
+            {
+                if (mass[i + 1] - mass[i] != 1)
+                {
+                    throw new ArgumentException("Неверные входные данные!");
+                }
+            }
+                FieldGame = new int[size, size];
             pointGame = new Point[mass.Length];
             for (int i = 0; i < mass.Length; i++)
             {
@@ -36,7 +43,6 @@ namespace barley_break
                     }
                 }
             }
-
         }
         public int this[int x, int y]
         {
@@ -73,7 +79,7 @@ namespace barley_break
             }
             else
             {
-                Console.WriteLine("Невозможно передвинуть клетку!");
+                throw new ArgumentException("Невозможно передвинуть клетку!");
             }
         }
 
