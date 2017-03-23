@@ -6,13 +6,10 @@ using System.Threading.Tasks;
 
 namespace barley_break
 {
-    class Program
+    interface IPlayable
     {
-        static void Main(string[] args)
-        {
-            Console.ReadLine();
-        }
-
-        
+        void Randomize();
+        void Shift(int value);
+        bool IsFinished();
     }
 }

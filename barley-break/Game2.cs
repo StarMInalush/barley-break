@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace barley_break
 {
-    class Game2:Game
+    class Game2:Game, IPlayable
     {
         public Game2(params int[] mass) :base(mass) { }
-        public void Random()
+        public void Randomize()
         {
             for (int i = 0; i < 100; i++)
             {
@@ -46,7 +46,7 @@ namespace barley_break
                
 
             
-        public bool IsEnd()
+        public bool IsFinished()
         {
             int value = 1;
             for (int x = 0; x < FieldGame.GetLength(0); x++)
@@ -62,6 +62,5 @@ namespace barley_break
             }
             return true;
         }
-
     }
 }

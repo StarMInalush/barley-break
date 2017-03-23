@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace barley_break
 {
-    class Game3 : Game2
+    class Game3 : Game2, IPlayable
     {
         private Stack<int> history;
         public Game3(params int[] mass)
