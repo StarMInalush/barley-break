@@ -8,10 +8,16 @@ namespace barley_break
 {
     class ConsoleGameUI
     {
-        IPlayable game = new Game3();
-
-        public static void Show(Game3 game)
+        private IPlayable game;
+        
+        public ConsoleGameUI(IPlayable game)
         {
+            this.game = game;
+        }
+        
+        public void Show()
+        {
+            Game2 temp = (Game2) game;
             for (int i = 0; i < game.FieldGame.GetLength(0); i++)
             {
                 for (int j = 0; j < game.FieldGame.GetLength(1); j++)
@@ -23,7 +29,7 @@ namespace barley_break
             Console.WriteLine();
         }
 
-        public static void Play(Game3 game)
+        public void Play()
         {
             var temp = Convert.ToInt32(Console.ReadLine());
             game.Shift(temp);
