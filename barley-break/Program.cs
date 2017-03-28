@@ -14,6 +14,9 @@ namespace barley_break
             ConsoleGameUI gui3 = new ConsoleGameUI((IPlayable) new Game3(3, 2, 1, 0));
             gui2.Show();
             gui3.Show();
+            Console.WriteLine("Введите число: ");
+            gui.Play();
+            gui.Show();
             Console.ReadLine();
         }
 
