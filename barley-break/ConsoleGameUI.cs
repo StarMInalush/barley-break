@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,30 +9,48 @@ namespace barley_break
     class ConsoleGameUI
     {
         private IPlayable game;
-        
+
         public ConsoleGameUI(IPlayable game)
         {
             this.game = game;
         }
-        
-        public void Show()
+
+        protected void Show() // обращать только к интерфейу и вынести длину массива и поле через индекстатор
         {
-            Game2 temp = (Game2) game;
-            for (int i = 0; i < temp.FieldGame.GetLength(0); i++)
+            for (int i = 0; i < game.Size; i++)
             {
-                for (int j = 0; j < temp.FieldGame.GetLength(1); j++)
+                for (int j = 0; j < game.Size; j++)
                 {
-                    Console.Write(temp.FieldGame[i, j] + " ");
+                    Console.Write(game[i, j] + " ");
                 }
                 Console.WriteLine();
             }
             Console.WriteLine();
         }
 
-        public void Play()
+        public void Play()//проверить ввод try parse
         {
-            var temp = Convert.ToInt32(Console.ReadLine());
-            game.Shift(temp);
+            game.Randomize();
+            int temp;
+
+            do
+            {
+                Show();
+                Console.WriteLine("Введите число: ");
+                bool sucessConvert = int.TryParse(Console.ReadLine(), out temp);
+                if (sucessConvert)
+                {
+                    game.Shift(temp);
+                }
+                else
+                {
+                    Console.WriteLine("Пожалуйста, введите число!");
+                    Play();
+                }
+                Console.Clear();
+                
+            } while (!game.IsFinished());
+            Console.WriteLine("Игра окончена!");
         }
     }
 }
