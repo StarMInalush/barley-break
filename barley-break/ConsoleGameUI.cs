@@ -15,7 +15,7 @@ namespace barley_break
             this.game = game;
         }
 
-        protected void Show() // обращать только к интерфейу и вынести длину массива и поле через индекстатор
+        public void Show() // обращать только к интерфейу и вынести длину массива и поле через индекстатор
         {
             for (int i = 0; i < game.Size; i++)
             {
