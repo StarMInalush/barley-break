@@ -11,5 +11,11 @@ namespace barley_break
         void Randomize();
         void Shift(int value);
         bool IsFinished();
+        int Size { get; }
+        int this [int x, int y]
+        {
+            get;
+        }
+    }
     }
 }
