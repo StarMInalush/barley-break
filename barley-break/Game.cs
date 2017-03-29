@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -11,14 +11,18 @@ namespace barley_break
     {
         protected Point[] pointGame;
         public readonly int[,] FieldGame;
+        public int Size
+        {
+            get; private set;
+        }
         public Game(params int[] mass)
         {
-            int size = (int)Math.Sqrt(mass.Length);
-            if (size * size != mass.Length)
+            Size = (int)Math.Sqrt(mass.Length);
+            if (Size * Size != mass.Length)
             {
                 throw new ArgumentException("Недостаточно чисел для построения поля!");
             }
-            if (size <= 1)
+            if (Size <= 1)
             {
                 throw new ArgumentException("Размер поля не может быть меньше или равным 1!");
             }
@@ -29,13 +33,13 @@ namespace barley_break
                     throw new ArgumentException("Неверные входные данные!");
                 }
             }
-                FieldGame = new int[size, size];
+                FieldGame = new int[Size, Size];
             pointGame = new Point[mass.Length];
             for (int i = 0; i < mass.Length; i++)
             {
-                for (int j = 0; j < size; j++)
+                for (int j = 0; j < Size; j++)
                 {
-                    for (int k = 0; k < size; k++)
+                    for (int k = 0; k < Size; k++)
                     {
                         FieldGame[j, k] = mass[i];
                         pointGame[mass[i]] = new Point(j, k);
@@ -70,7 +74,7 @@ namespace barley_break
         {
             Point gameValue = GetLocation(value);
             Point gameZero = GetLocation(0);
-            if (Math.Abs(gameZero.X - gameValue.X) == 1 && gameZero.Y == gameValue.Y || Math.Abs(gameZero.Y - gameValue.Y) == 1 && gameZero.X == gameValue.X) //reverse
+            if (Math.Abs(gameZero.X - gameValue.X) == 1 && gameZero.Y == gameValue.Y || Math.Abs(gameZero.Y - gameValue.Y) == 1 && gameZero.X == gameValue.X ) 
             {
                 FieldGame[gameValue.X, gameValue.Y] = 0;
                 FieldGame[gameZero.X, gameZero.Y] = value;
@@ -109,5 +113,4 @@ namespace barley_break
         }
     }
 }
-
 
