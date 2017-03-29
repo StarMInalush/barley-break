@@ -18,11 +18,11 @@ namespace barley_break
         public void Show()
         {
             Game2 temp = (Game2) game;
-            for (int i = 0; i < game.FieldGame.GetLength(0); i++)
+            for (int i = 0; i < temp.FieldGame.GetLength(0); i++)
             {
-                for (int j = 0; j < game.FieldGame.GetLength(1); j++)
+                for (int j = 0; j < temp.FieldGame.GetLength(1); j++)
                 {
-                    Console.Write(game.FieldGame[i, j] + " ");
+                    Console.Write(temp.FieldGame[i, j] + " ");
                 }
                 Console.WriteLine();
             }
