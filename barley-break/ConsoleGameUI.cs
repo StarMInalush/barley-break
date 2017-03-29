@@ -31,26 +31,29 @@ namespace barley_break
         public void Play()//проверить ввод try parse
         {
             game.Randomize();
-            int temp;
-
+            Show();
             do
-            {
+            { 
+                int temp = getValue();
+                game.Shift(temp);
                 Show();
-                Console.WriteLine("Введите число: ");
-                bool sucessConvert = int.TryParse(Console.ReadLine(), out temp);
-                if (sucessConvert)
-                {
-                    game.Shift(temp);
-                }
-                else
-                {
-                    Console.WriteLine("Пожалуйста, введите число!");
-                    Play();
-                }
-                Console.Clear();
                 
             } while (!game.IsFinished());
             Console.WriteLine("Игра окончена!");
         }
+        private int getValue()
+        {
+            int value = 0;
+            Console.WriteLine("Введите число от 1 до " + (game.Size * game.Size - 1) + " : ");
+            bool sucessConvert = int.TryParse(Console.ReadLine(), out value);
+            if (!sucessConvert || value < 1 || value >= game.Size * game.Size)
+            {
+                Console.WriteLine("Неверный ввод! Попробуйте еще раз!");
+                return getValue();
+               
+            }
+            return value;
+        }
+    
     }
 }
