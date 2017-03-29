@@ -15,8 +15,8 @@ namespace barley_break
             gui2.Show();
             gui3.Show();
             Console.WriteLine("Введите число: ");
-            gui.Play();
-            gui.Show();
+            gui3.Play();
+            gui3.Show();
             Console.ReadLine();
         }
 
