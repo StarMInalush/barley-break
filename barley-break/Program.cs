@@ -10,14 +10,10 @@ namespace barley_break
     {
         static void Main(string[] args)
         {
-            ConsoleGameUI gui2 = new ConsoleGameUI((IPlayable) new Game2(0, 1, 2, 3));
-            ConsoleGameUI gui3 = new ConsoleGameUI((IPlayable) new Game3(3, 2, 1, 0));
-            gui2.Show();
-            gui3.Show();
-            Console.WriteLine("Введите число: ");
+            ConsoleGameUI gui2 = new ConsoleGameUI((IPlayable)new Game2(1, 2, 3, 0));
+            ConsoleGameUI gui3 = new ConsoleGameUI((IPlayable)new Game3(1, 2, 3, 4, 5, 6, 7, 8, 0));
             gui3.Play();
-            gui3.Show();
-            Console.ReadLine();
+            Console.ReadKey();
         }
 
         
